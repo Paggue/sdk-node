@@ -1,17 +1,22 @@
 import { firstValueFrom, map } from 'rxjs'
-import { ConfigService } from './ConfigService'
+import { ConfigService } from '../helpers/ConfigService'
 import { checkSignatureWithHmacSha512 } from '../../util/crypto'
-import { CacheService } from './CacheService'
-import { HttpService } from './HttpService'
-import { LogService } from './LogService'
-import { PaggueServices } from '../sdk/PaggueServices'
-import { snakeKeys } from '../../util/case'
+import { CacheService } from '../helpers/CacheService'
+import { HttpService } from '../helpers/HttpService'
+import { LogService } from '../helpers/LogService'
+import { PaggueServices } from './PaggueServices'
+import snakecaseKeys from 'snakecase-keys'
+
+export enum PaggueServiceTypes {
+  CashIn = 'payments',
+  CashOut = 'cashout'
+}
 
 export interface PaggueSdkOptions {
   companyId: string
   clientKey: string
   clientSecret: string
-  webhookToken: string
+  signatureToken: string
   sandbox: boolean
 }
 
@@ -21,14 +26,17 @@ export interface PaggueAuthenticationResponse {
   expiresAt: string
 }
 
-export class BaseService {
-  protected logService: LogService = new LogService(BaseService.name)
+export class PaggueBaseService {
+  protected microservice: PaggueServiceTypes | undefined
+
+  protected logService: LogService = new LogService(PaggueBaseService.name)
 
   protected cacheService: CacheService = PaggueServices.get(CacheService)
 
   protected configService: ConfigService = PaggueServices.get(ConfigService)
 
   protected httpService: HttpService = PaggueServices.get(HttpService, {
+    signatureToken: this.options.signatureToken,
     baseURL: this.configService.get(['api', 'baseUrl']),
     headers: {
       'X-Company-Id': this.options.companyId
@@ -41,6 +49,9 @@ export class BaseService {
     return checkSignatureWithHmacSha512(signature, JSON.stringify(data))
   }
 
+  /**
+   * This method autheticate with Paggue API using client key and secret
+   */
   protected async authenticate() {
     const authorizationKey = `Autorization:${this.options.clientKey}:${this.options.clientSecret}`
 
@@ -48,8 +59,8 @@ export class BaseService {
 
     if (!authorization) {
       const response = this.httpService.post<PaggueAuthenticationResponse>(
-        `payments/api/auth/login`,
-        snakeKeys({
+        `${this.microservice}/api/auth/login`,
+        snakecaseKeys({
           clientKey: this.options.clientKey,
           clientSecret: this.options.clientSecret
         })
@@ -66,7 +77,7 @@ export class BaseService {
       this.cacheService.set(authorizationKey, authorization)
     }
 
-    this.httpService.axiosRef.defaults.headers.Authorization =
+    this.httpService.axiosRef.defaults.headers.common.Authorization =
       authorization as any
 
     this.logService.info('Authorization success', { authorization })

@@ -1,15 +1,16 @@
 import snakecaseKeys from 'snakecase-keys'
-import { BaseService } from '../helpers/BaseService'
+import { PaggueBaseService, PaggueServiceTypes } from './PaggueBaseService'
 import { firstValueFrom, map } from 'rxjs'
+import { LogService } from '../helpers/LogService'
 
-export interface PagguePixProviderStaticPixRequest {
+export interface PaggueBillingOrderStaticPixRequest {
   externalId: string
   payerName: string
   amount: number
   description: string
 }
 
-export interface PagguePixProviderStaticPixResponse {
+export interface PaggueBillingOrderStaticPixResponse {
   hash: string
   payerName: string
   amount: number
@@ -20,13 +21,19 @@ export interface PagguePixProviderStaticPixResponse {
   paidAt: string | null
 }
 
-export class PaggueBillingOrderService extends BaseService {
+export class PaggueBillingOrderService extends PaggueBaseService {
+  protected microservice = PaggueServiceTypes.CashIn
+
+  protected logService: LogService = new LogService(
+    PaggueBillingOrderService.name
+  )
+
   public async createStaticPayment(
-    data: PagguePixProviderStaticPixRequest
-  ): Promise<PagguePixProviderStaticPixResponse> {
+    data: PaggueBillingOrderStaticPixRequest
+  ): Promise<PaggueBillingOrderStaticPixResponse> {
     await this.authenticate()
 
-    const response = this.httpService.post<PagguePixProviderStaticPixResponse>(
+    const response = this.httpService.post<PaggueBillingOrderStaticPixResponse>(
       `/payments/api/billing_order`,
       snakecaseKeys(data)
     )

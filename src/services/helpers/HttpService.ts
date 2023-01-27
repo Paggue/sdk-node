@@ -5,29 +5,43 @@ import Axios, {
   CreateAxiosDefaults,
   AxiosResponse,
   CancelTokenSource,
-  AxiosError
+  AxiosError,
+  AxiosHeaders
 } from 'axios'
 import { Observable } from 'rxjs'
 import { PaggueException } from '../../exceptions/PaggueException'
-import { camelKeys } from '../../util/case'
+import { PaggueSdkOptions } from '../sdk/PaggueBaseService'
 import { LogService } from './LogService'
+import { signWithHmacSha512 } from '../../util/crypto'
+import camelcaseKeys from 'camelcase-keys'
 
 export class HttpService {
   protected instance: AxiosInstance = Axios
   protected logService: LogService = new LogService(HttpService.name)
 
-  constructor(protected config?: CreateAxiosDefaults) {
+  constructor(
+    protected config: CreateAxiosDefaults &
+      Pick<PaggueSdkOptions, 'signatureToken'>
+  ) {
     this.instance = Axios.create(config)
 
     this.instance.interceptors.request.use((request) => {
       this.logService.info('External http resquest', { request })
+
+      if (request.data && config.signatureToken) {
+        request.headers.Signature = signWithHmacSha512(
+          config.signatureToken,
+          JSON.stringify(request.data)
+        )
+      }
+
       return request
     })
 
     this.instance.interceptors.response.use(
       async (response) => {
         if (response.data) {
-          response.data = await camelKeys(response.data)
+          response.data = camelcaseKeys(response.data)
         }
 
         this.logService.info('External http resquest sucesss', {

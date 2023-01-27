@@ -1,23 +1,60 @@
 import snakecaseKeys from 'snakecase-keys'
-import { BaseService } from '../helpers/BaseService'
+import { PaggueBaseService, PaggueServiceTypes } from './PaggueBaseService'
 import { firstValueFrom, map } from 'rxjs'
+import { LogService } from '../helpers/LogService'
+
+export enum PaggueCashoutTypes {
+  BankAccount = 0,
+  PixKey = 1
+}
 
 export interface PaggueCashoutRequest {
-  foo: string
+  externalId: string
+  amount: string
+  type: PaggueCashoutTypes
+  description: string
+  bankAccount: {
+    holder: string
+    document: string
+    account: string
+    accountType: 'cc' | 'cp'
+    accountDigit: string
+    agency: string
+    ispb: string
+  }
 }
 
 export interface PaggueCashoutResponse {
-  bar: string
+  id: string
+  externalId: string
+  amount: string
+  type: PaggueCashoutTypes
+  description: string
+  pixKey: string
+  gateway: string
+  reference: string
+  bankAccount: {
+    holder: string
+    document: string
+    account: string
+    accountType: 'cc' | 'cp'
+    accountDigit: string
+    agency: string
+    ispb: string
+  }
 }
 
-export class PaggueCashoutService extends BaseService {
-  public async createCashoutTransfer(
+export class PaggueCashoutService extends PaggueBaseService {
+  protected logService: LogService = new LogService(PaggueCashoutService.name)
+  protected microservice = PaggueServiceTypes.CashOut
+
+  public async createTransfer(
     data: PaggueCashoutRequest
   ): Promise<PaggueCashoutResponse> {
     await this.authenticate()
 
     const response = this.httpService.post<PaggueCashoutResponse>(
-      `/cashout/api/bla-bla`,
+      `/cashout/api/cash-out`,
       snakecaseKeys(data)
     )
 

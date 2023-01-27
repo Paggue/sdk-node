@@ -4,6 +4,8 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "declaration": true,
+    "declarationDir": "./types",
+    "preserveSymlinks": true,
     "strict": true,
     "noImplicitAny": true /* Raise error on expressions and declarations with an implied 'any' type. */,
     "strictNullChecks": true /* Enable strict null checks. */,
