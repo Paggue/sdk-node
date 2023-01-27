@@ -1,7 +1,7 @@
 import snakecaseKeys from 'snakecase-keys'
 import { PaggueBaseService, PaggueServiceTypes } from './PaggueBaseService'
 import { firstValueFrom, map } from 'rxjs'
-import { LogService } from '../helpers/LogService'
+import { LogService } from './helpers/LogService'
 
 export enum PaggueCashoutTypes {
   BankAccount = 0,

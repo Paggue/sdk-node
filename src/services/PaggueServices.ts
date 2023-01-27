@@ -1,5 +1,5 @@
 import { PaggueSdkOptions } from './PaggueBaseService'
-import { ConfigService } from '../helpers/ConfigService'
+import { ConfigService } from './helpers/ConfigService'
 import { PaggueBillingOrderService } from './PaggueBillingOrderService'
 import { PaggueCashoutService } from './PaggueCashOutService'
 

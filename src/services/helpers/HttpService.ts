@@ -9,7 +9,7 @@ import Axios, {
 } from 'axios'
 import { Observable } from 'rxjs'
 import { PaggueException } from '../../exceptions/PaggueException'
-import { PaggueSdkOptions } from '../sdk/PaggueBaseService'
+import { PaggueSdkOptions } from '../PaggueBaseService'
 import { LogService } from './LogService'
 import { signWithHmacSha512 } from '../../util/crypto'
 import camelcaseKeys from 'camelcase-keys'

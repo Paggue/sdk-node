@@ -1,5 +1,5 @@
 export * from './services/sdk/PaggueServices'
-export * from './services/sdk/PaggueBaseService'
+export * from './services/PaggueBaseService'
 export * from './services/sdk/PaggueBillingOrderService'
 export * from './services/sdk/PaggueCashOutService'
 
