@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import Axios, { AxiosInstance as DefaultAxiosHeaders } from 'axios'
+import { AxiosHeaders } from 'axios'
 
 declare module 'axios' {
-  export interface AxiosHeaders extends DefaultAxiosHeaders {
+  export interface AxiosHeaders {
     Signature?: string
     Authorization?: string
   }

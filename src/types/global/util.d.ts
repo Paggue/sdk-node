@@ -2,14 +2,16 @@ type Primitives =
   | string
   | boolean
   | number
-  | date
+  | Date
   | string[]
   | boolean[]
   | number[]
-  | date[]
+  | Date[]
 
 type Any = Primitives | AnyObject
 
-type AnyObject = Record<string, Any> // eslint-disable-line
+interface AnyObject {
+  [key: any]: AnyObject
+}
 
 type SimpleFn<Param, Return> = (a: Param) => Return

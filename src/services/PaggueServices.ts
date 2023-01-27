@@ -23,7 +23,7 @@ export class PaggueServices {
    *
    * @returns new Service(options)
    */
-  static get<Contract extends AnyObject, Options extends AnyObject>( // eslint-disable-line
+  static get<Contract extends AnyObject, Options extends AnyObject>(
     Service: PaggueServiceConstructor<Options, Contract>,
     serviceArguments: Options | any[] = [],
     options: PaggueServiceIntanceOptions = {}
