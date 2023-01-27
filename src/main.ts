@@ -1,7 +1,7 @@
-export * from './services/sdk/PaggueServices'
+export * from './services/PaggueServices'
 export * from './services/PaggueBaseService'
-export * from './services/sdk/PaggueBillingOrderService'
-export * from './services/sdk/PaggueCashOutService'
+export * from './services/PaggueBillingOrderService'
+export * from './services/PaggueCashOutService'
 
 // async function oneOff() {
 //   const logger = new LogService('oneOff')

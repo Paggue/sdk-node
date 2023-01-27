@@ -20,7 +20,7 @@
     "experimentalDecorators": true,
     "sourceMap": true,
     "outDir": "./dist/tsc/",
-    "typeRoots": ["./node_modules/@types", "src/typings"],
+    "typeRoots": ["./node_modules/@types", "typings"],
     "types": ["node", "jest"],
     "lib": ["ES6"]
   },
