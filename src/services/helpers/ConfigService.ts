@@ -22,7 +22,7 @@ export class ConfigService {
     return {
       api: {
         baseUrl: this.isSandbox
-          ? 'https://sandbox.paggue.io/'
+          ? 'https://ms.paggue.io/'
           : 'https://ms.paggue.io/'
       }
     }

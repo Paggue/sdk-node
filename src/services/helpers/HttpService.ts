@@ -5,8 +5,7 @@ import Axios, {
   CreateAxiosDefaults,
   AxiosResponse,
   CancelTokenSource,
-  AxiosError,
-  AxiosHeaders
+  AxiosError
 } from 'axios'
 import { Observable } from 'rxjs'
 import { PaggueException } from '../../exceptions/PaggueException'
