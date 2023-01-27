@@ -3,14 +3,14 @@ import { PaggueBaseService, PaggueServiceTypes } from './PaggueBaseService'
 import { firstValueFrom, map } from 'rxjs'
 import { LogService } from '../helpers/LogService'
 
-export interface PaggueBillingOrderStaticPixRequest {
+export interface PaggueBillingOrderCreateStaticPixRequest {
   externalId: string
   payerName: string
   amount: number
   description: string
 }
 
-export interface PaggueBillingOrderStaticPixResponse {
+export interface PaggueBillingOrderCreateStaticPixResponse {
   hash: string
   payerName: string
   amount: number
@@ -29,14 +29,15 @@ export class PaggueBillingOrderService extends PaggueBaseService {
   )
 
   public async createStaticPayment(
-    data: PaggueBillingOrderStaticPixRequest
-  ): Promise<PaggueBillingOrderStaticPixResponse> {
+    data: PaggueBillingOrderCreateStaticPixRequest
+  ): Promise<PaggueBillingOrderCreateStaticPixResponse> {
     await this.authenticate()
 
-    const response = this.httpService.post<PaggueBillingOrderStaticPixResponse>(
-      `/payments/api/billing_order`,
-      snakecaseKeys(data)
-    )
+    const response =
+      this.httpService.post<PaggueBillingOrderCreateStaticPixResponse>(
+        `/payments/api/billing_order`,
+        snakecaseKeys(data)
+      )
 
     const staticPixData = response.pipe(map((response) => response.data))
 

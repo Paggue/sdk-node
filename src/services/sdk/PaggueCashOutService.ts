@@ -8,7 +8,7 @@ export enum PaggueCashoutTypes {
   PixKey = 1
 }
 
-export interface PaggueCashoutRequest {
+export interface PaggueCashoutCreateTransferRequest {
   externalId: string
   amount: string
   type: PaggueCashoutTypes
@@ -24,7 +24,7 @@ export interface PaggueCashoutRequest {
   }
 }
 
-export interface PaggueCashoutResponse {
+export interface PaggueCashoutCreateTransferResponse {
   id: string
   externalId: string
   amount: string
@@ -49,11 +49,11 @@ export class PaggueCashoutService extends PaggueBaseService {
   protected microservice = PaggueServiceTypes.CashOut
 
   public async createTransfer(
-    data: PaggueCashoutRequest
-  ): Promise<PaggueCashoutResponse> {
+    data: PaggueCashoutCreateTransferRequest
+  ): Promise<PaggueCashoutCreateTransferResponse> {
     await this.authenticate()
 
-    const response = this.httpService.post<PaggueCashoutResponse>(
+    const response = this.httpService.post<PaggueCashoutCreateTransferResponse>(
       `/cashout/api/cash-out`,
       snakecaseKeys(data)
     )
