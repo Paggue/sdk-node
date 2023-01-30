@@ -1,14 +1,14 @@
 import { PaggueSdkOptions } from './PaggueBaseService'
 import { ConfigService } from './helpers/ConfigService'
 import { PaggueBillingOrderService } from './PaggueBillingOrderService'
-import { PaggueCashoutService } from './PaggueCashOutService'
+import { PaggueCashOutService } from './PaggueCashOutService'
 
 interface PaggueServiceIntanceOptions {
   replace?: boolean
   scope?: string
 }
 
-interface PaggueServiceConstructor<Options, Contract> {
+interface PaggueServiceConstructor<Contract, Options> {
   new (options: Options): Contract
   new (...args: any[]): Contract
 }
@@ -24,15 +24,13 @@ export class PaggueServices {
    * @returns new Service(options)
    */
   static get<Contract extends AnyObject, Options extends AnyObject>(
-    Service: PaggueServiceConstructor<Options, Contract>,
+    Service: PaggueServiceConstructor<Contract, Options>,
     serviceArguments: Options | any[] = [],
     options: PaggueServiceIntanceOptions = {}
   ): Contract {
     const { replace = false, scope = 'app' } = options
 
     const key = `${Service.name}|${scope}`
-
-    console.log(Service.name, scope, this.instancesMap[key])
 
     if (!this.instancesMap[key] || replace) {
       this.instancesMap[key] = Array.isArray(serviceArguments)
@@ -54,7 +52,7 @@ export class PaggueServices {
       replace: true
     })
 
-    PaggueServices.get(PaggueCashoutService, options, {
+    PaggueServices.get(PaggueCashOutService, options, {
       scope,
       replace: true
     })

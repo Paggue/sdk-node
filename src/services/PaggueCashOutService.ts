@@ -4,13 +4,13 @@ import { firstValueFrom, map } from 'rxjs'
 import { LogService } from './helpers/LogService'
 
 export enum PaggueCashoutTypes {
-  BankAccount = 0,
-  PixKey = 1
+  BankAccount = 0
+  // PixKey = 1
 }
 
 export interface PaggueCashoutCreateTransferRequest {
   externalId: string
-  amount: string
+  amount: number
   type: PaggueCashoutTypes
   description: string
   bankAccount: {
@@ -44,8 +44,8 @@ export interface PaggueCashoutCreateTransferResponse {
   }
 }
 
-export class PaggueCashoutService extends PaggueBaseService {
-  protected logService: LogService = new LogService(PaggueCashoutService.name)
+export class PaggueCashOutService extends PaggueBaseService {
+  protected logService: LogService = new LogService(PaggueCashOutService.name)
   protected microservice = PaggueServiceTypes.CashOut
 
   public async createTransfer(
@@ -54,7 +54,7 @@ export class PaggueCashoutService extends PaggueBaseService {
     await this.authenticate()
 
     const response = this.httpService.post<PaggueCashoutCreateTransferResponse>(
-      `/cashout/api/cash-out`,
+      this.endpoint('/cash-out'),
       snakecaseKeys(data)
     )
 
