@@ -1,12 +1,12 @@
 import { createHmac } from 'crypto'
 
-export const signWithHmacSha512 = (secret: string, data: string) => {
-  const hmac = createHmac('sha512', secret)
+export const signWithHmacSha256 = (secret: string, data: string) => {
+  const hmac = createHmac('sha256', secret)
   const signature = hmac.update(Buffer.from(data, 'utf-8')).digest('hex')
   return signature
 }
 
-export const checkSignatureWithHmacSha512 = (
+export const checkSignatureWithHmacSha256 = (
   signature: string,
   data: string
 ) => {
@@ -14,5 +14,5 @@ export const checkSignatureWithHmacSha512 = (
     return false
   }
 
-  return signature == signWithHmacSha512(signature, JSON.stringify(data))
+  return signature == signWithHmacSha256(signature, JSON.stringify(data))
 }

@@ -10,8 +10,6 @@ type Primitives =
 
 type Any = Primitives | AnyObject
 
-interface AnyObject {
-  [key: any]: AnyObject
-}
+type AnyObject = Record<string, Any>
 
 type SimpleFn<Param, Return> = (a: Param) => Return
