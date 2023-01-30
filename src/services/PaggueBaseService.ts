@@ -1,6 +1,6 @@
 import { firstValueFrom, map } from 'rxjs'
 import { ConfigService } from './helpers/ConfigService'
-import { checkSignatureWithHmacSha512 } from '../util/crypto'
+import { checkSignatureWithHmacSha256 } from '../util/crypto'
 import { CacheService } from './helpers/CacheService'
 import { HttpService } from './helpers/HttpService'
 import { LogService } from './helpers/LogService'
@@ -46,7 +46,11 @@ export class PaggueBaseService {
   constructor(protected options: PaggueSdkOptions) {}
 
   protected async checkSignatureIsValid(signature: string, data: any) {
-    return checkSignatureWithHmacSha512(signature, JSON.stringify(data))
+    return checkSignatureWithHmacSha256(signature, JSON.stringify(data))
+  }
+
+  protected endpoint(endpoint: string) {
+    return `${this.microservice}/api/${endpoint}`.replace('//', '/')
   }
 
   /**
@@ -59,7 +63,7 @@ export class PaggueBaseService {
 
     if (!authorization) {
       const response = this.httpService.post<PaggueAuthenticationResponse>(
-        `${this.microservice}/api/auth/login`,
+        `/payments/api/auth/login`,
         snakecaseKeys({
           clientKey: this.options.clientKey,
           clientSecret: this.options.clientSecret
