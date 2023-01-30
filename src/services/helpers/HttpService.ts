@@ -11,7 +11,7 @@ import { Observable } from 'rxjs'
 import { PaggueException } from '../../exceptions/PaggueException'
 import { PaggueSdkOptions } from '../PaggueBaseService'
 import { LogService } from './LogService'
-import { signWithHmacSha512 } from '../../util/crypto'
+import { signWithHmacSha256 } from '../../util/crypto'
 import camelcaseKeys from 'camelcase-keys'
 
 export class HttpService {
@@ -25,34 +25,54 @@ export class HttpService {
     this.instance = Axios.create(config)
 
     this.instance.interceptors.request.use((request) => {
-      this.logService.info('External http resquest', { request })
-
-      if (request.data && config.signatureToken) {
-        request.headers.Signature = signWithHmacSha512(
+      if (request.data && request.signatureToken) {
+        request.headers.Signature = signWithHmacSha256(
           config.signatureToken,
           JSON.stringify(request.data)
         )
       }
+
+      this.logService.info('External http resquest', {
+        request: {
+          method: request.method,
+          baseUrl: request.baseURL,
+          url: request.url,
+          params: request.params,
+          data: request.data,
+          headers: request.headers
+        }
+      })
 
       return request
     })
 
     this.instance.interceptors.response.use(
       async (response) => {
+        this.logService.info('External http resquest sucesss', {
+          response: {
+            status: response.status,
+            statusText: response.statusText,
+            data: response.data,
+            headers: response.headers
+          }
+        })
+
         if (response.data) {
           response.data = camelcaseKeys(response.data)
         }
-
-        this.logService.info('External http resquest sucesss', {
-          data: response.data
-        })
 
         return response
       },
 
       (error: AxiosError) => {
-        this.logService.error('External http resquest failed', {
-          error: error.toJSON()
+        this.logService.info('External http resquest sucesss', {
+          error: {
+            status: error.response?.status,
+            statusText: error.response?.statusText,
+            message: error.message,
+            data: error.response?.data,
+            headers: error.response?.headers
+          }
         })
 
         return new PaggueException(
