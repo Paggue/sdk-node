@@ -3,7 +3,7 @@ name: Lint and test
 on: [push, pull_request]
 
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - uses: actions/setup-node@v2-beta
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.nodejs }}
           always-auth: false
