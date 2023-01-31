@@ -15,3 +15,9 @@ package-lock.json
 /tmp*
 /mnt/
 /package/
+/src/
+.npmrc
+.nvmrc
+.prettierrc
+jets.config.js
+tsconfig.json
