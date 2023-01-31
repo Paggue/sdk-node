@@ -1,7 +1,8 @@
 name: Publish Package to npmjs
-on:
-  release:
-    types: [created]
+on: [push, pull_request]
+  # release:
+  #   types: [created]
+
 jobs:
   publish-npm:
     runs-on: ubuntu-latest
@@ -12,8 +13,9 @@ jobs:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
           scope: '@paggue'
-      - run: yarn
+      - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: yarn publish
+      - run: cat .npmrc
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
