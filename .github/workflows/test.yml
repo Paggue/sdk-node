@@ -11,12 +11,11 @@ jobs:
         nodejs: [16]
 
     steps:
-      - uses: actions/checkout@v2
-
-      # https://github.com/actions/setup-node
+      - uses: actions/checkout@v3
       - uses: actions/setup-node@v2-beta
         with:
           node-version: ${{ matrix.nodejs }}
+          always-auth: false
 
       - run: yarn install
       - run: yarn add -D esbuild
