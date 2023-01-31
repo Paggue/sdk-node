@@ -11,8 +11,8 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
-      - run: yarn install --frozen-lockfile
+          scope: '@paggue'
+      - run: yarn
       - run: yarn build-all
       - run: yarn publish
         env:
