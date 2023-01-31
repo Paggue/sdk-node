@@ -3,7 +3,7 @@ on:
   release:
     types: [created]
 jobs:
-  build:
+  publish-npm:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -11,8 +11,8 @@ jobs:
         with:
           node-version: '16.x'
           registry-url: 'https://registry.npmjs.org'
-          cache: 'yarn'
-      - run: yarn
+          always-auth: true
+      - run: yarn install --frozen-lockfile
       - run: yarn build-all
       - run: yarn publish
         env:
