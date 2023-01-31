@@ -15,7 +15,7 @@ jobs:
           scope: '@paggue'
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: cat .npmrc
+      - run: ls -la
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
