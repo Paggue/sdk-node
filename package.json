@@ -1,8 +1,11 @@
 {
-  "name": "sdk-node",
+  "name": "@paggue/sdk-node",
   "version": "0.0.1",
   "description": "SDK to facilitate Node JS integrations with the Paggue API",
-  "repository": "https://github.com/Paggue/sdk-node",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paggue/sdk-node.git"
+  },
   "license": "MIT",
   "keywords": [
     "typescript",
@@ -46,5 +49,13 @@
     "rxjs": "^7.8.0",
     "snakecase-keys": "^5.4.4",
     "winston": "^3.8.2"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/Paggue/sdk-node/issues"
+  },
+  "homepage": "https://github.com/Paggue/sdk-node#readme",
+  "directories": {
+    "doc": "docs"
+  },
+  "author": "Paggue Developers"
 }
