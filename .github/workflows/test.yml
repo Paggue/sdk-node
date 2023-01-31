@@ -15,8 +15,8 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.nodejs }}
-          always-auth: false
 
+      - run: rm .npmrc
       - run: yarn install
       - run: yarn add -D esbuild
       # - run: yarn test
