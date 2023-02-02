@@ -16,6 +16,8 @@ jobs:
         with:
           node-version: ${{ matrix.nodejs }}
           cache: "yarn"
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: yarn install
       - run: yarn add -D esbuild
