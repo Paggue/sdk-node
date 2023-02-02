@@ -10,6 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with: 
           node-version: "16.x"
+          always-auth: true
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose
