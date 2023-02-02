@@ -19,8 +19,15 @@ jobs:
           node-version: ${{ matrix.nodejs }}
           cache: "yarn"
 
-      - run: yarn install
-      - run: yarn add -D esbuild
-      # - run: yarn test
-      - run: yarn lint
-      - run: yarn build-all
+      - name: Install dependencies
+        run: |
+          yarn install
+          yarn add -D esbuild
+
+      - name: Run tests
+        run: |
+          yarn lint
+        # yarn test
+
+      - name: Build project
+        run: yarn build-all

@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   publish:
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -14,6 +14,18 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
           cache: "yarn"
-      - run: yarn install --frozen-lockfile
-      - run: yarn build-all
-      - run: yarn publish --access public
+
+      - name: Setup yarn
+        run: |
+          yarn config set npmScopes.paggue.npmRegistryServer "https://registry.npmjs.org"
+          yarn config set npmScopes.paggue.npmAlwaysAuth true
+          yarn config set npmScopes.paggue.npmAuthToken $NPM_AUTH_TOKEN
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build release
+        run: yarn build-all
+
+      - name: Publish package
+        run: yarn publish --access public
