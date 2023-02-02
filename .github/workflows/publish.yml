@@ -10,9 +10,11 @@ jobs:
       - uses: actions/setup-node@v3
         with: 
           node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-          scope: "@paggue"
-          always-auth: true
+      - name: Setup Yarn
+        run: |
+          yarn config set npmRegistryServer "https://registry.npmjs.org"
+          yarn config set npmAlwaysAuth true
+          yarn config set npmAuthToken $NODE_AUTH_TOKEN
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose
