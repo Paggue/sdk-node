@@ -1,18 +1,18 @@
-name: Release Version
+name: Publish Package
 
-on: [push, pull_request]
+on: [push]
 
 jobs:
-  publish:
+  build-then-publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "14.x"
-          registry-url: <registry url>
-      - run: yarn install --frozen-lockfile
+          node-version: "16.x"
+          registry-url: "https://registry.npmjs.org"
+      - run: yarn --frozen-lockfile
       - run: yarn build-all
-      - run: yarn publish
+      - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
