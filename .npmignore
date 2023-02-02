@@ -16,8 +16,9 @@ package-lock.json
 /mnt/
 /package/
 /src/
-.npmrc
 .nvmrc
 .prettierrc
 jets.config.js
 tsconfig.json
+.editorconfig
+.eslintrc.js
