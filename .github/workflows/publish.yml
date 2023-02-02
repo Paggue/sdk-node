@@ -14,5 +14,4 @@ jobs:
           scope: "@paggue"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: cat $NPM_CONFIG_USERCONFIG
-      - run: yarn publish --access public
+      - run: yarn publish --verbose --access public
