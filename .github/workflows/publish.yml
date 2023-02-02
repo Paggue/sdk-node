@@ -16,8 +16,7 @@ jobs:
         always-auth: true
     - run: yarn --frozen-lockfile --ignore-scripts
     - run: yarn build
+    - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
     - run: yarn publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    # `npm rebuild` will run all those post-install scripts for us.
-    - run: npm rebuild && npm run prepare --if-present
