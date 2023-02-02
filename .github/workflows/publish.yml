@@ -10,11 +10,6 @@ jobs:
       - uses: actions/setup-node@v3
         with: 
           node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
-          scope: "@paggue"
-          always-auth: true
-      - run: envsubst < "$NPM_CONFIG_USERCONFIG" > .npmrc
-      - run: cat .npmrc
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose
