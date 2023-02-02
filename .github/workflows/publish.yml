@@ -18,4 +18,4 @@ jobs:
           scope: "@paggue"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: yarn publish --access public
+      - run: yarn publish
