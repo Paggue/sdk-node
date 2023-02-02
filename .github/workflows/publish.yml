@@ -26,6 +26,6 @@ jobs:
         token: '${{secrets.NPM_TOKEN}}'
         always-auth: true
     - run: yarn --frozen-lockfile --ignore-scripts
-    - run: yarn publish --verbose
+    - run: yarn publish --registry https://registry.npmjs.org --verbose
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
