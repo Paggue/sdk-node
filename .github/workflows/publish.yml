@@ -17,5 +17,5 @@ jobs:
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: ls -la
+      - run: echo ${{ secrets.NPM_TOKEN }}
       - run: yarn publish --access public
