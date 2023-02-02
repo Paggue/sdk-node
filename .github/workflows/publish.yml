@@ -17,5 +17,6 @@ jobs:
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: echo ${{ secrets.NPM_TOKEN }}
+      - run: echo "$NODE_AUTH_TOKEN" > key'
+      - run: cat key 
       - run: yarn publish --access public
