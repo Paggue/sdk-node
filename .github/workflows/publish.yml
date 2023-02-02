@@ -21,7 +21,6 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-        scope: '@paggue'
         registry-url: 'https://registry.npmjs.org'
         token: '${{secrets.NPM_TOKEN}}'
         always-auth: true
