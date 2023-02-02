@@ -14,9 +14,10 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
         token: '${{secrets.NPM_TOKEN}}'
         always-auth: true
-    - run: yarn --frozen-lockfile --ignore-scripts
-    - run: yarn build
-    - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+    # - run: yarn --frozen-lockfile --ignore-scripts
+    # - run: yarn build
+    # - run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+    - run: cat "$NPM_CONFIG_USERCONFIG"
     - run: yarn publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
