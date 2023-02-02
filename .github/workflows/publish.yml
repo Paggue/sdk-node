@@ -11,6 +11,9 @@ jobs:
         with:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
+          always-auth: true
+          scope: '@paggue'
+          token: ${{ secrets.NPM_TOKEN }}
       - run: yarn --frozen-lockfile
       - run: yarn build-all
       - run: yarn publish --access public
