@@ -45,7 +45,7 @@ export class PaggueBaseService {
 
   constructor(protected options: PaggueSdkOptions) {}
 
-  protected async checkSignatureIsValid(signature: string, data: any) {
+  public async checkSignatureIsValid(signature: string, data: any) {
     return checkSignatureWithHmacSha256(signature, JSON.stringify(data))
   }
 
