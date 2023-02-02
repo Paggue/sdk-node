@@ -17,5 +17,5 @@ jobs:
           cache: "yarn"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: yarn ls -la
+      - run: ls -la
       - run: yarn publish --access public
