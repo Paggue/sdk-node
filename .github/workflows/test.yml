@@ -4,6 +4,8 @@ on: [push, pull_request]
 
 jobs:
   test:
+    env:
+      NODE_AUTH_TOKEN: ""
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -16,8 +18,6 @@ jobs:
         with:
           node-version: ${{ matrix.nodejs }}
           cache: "yarn"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: yarn install
       - run: yarn add -D esbuild
