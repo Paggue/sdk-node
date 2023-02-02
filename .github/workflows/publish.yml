@@ -13,7 +13,7 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "@paggue"
           always-auth: true
-      - run: envsubst < ~/runner/work/_temp/.npmrc > .npmrc
+      - run: envsubst < ~/work/_temp/.npmrc > .npmrc
       - run: cat .npmrc
       - run: yarn --inmutable
       - run: yarn build-all
