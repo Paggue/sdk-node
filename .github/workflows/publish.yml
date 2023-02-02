@@ -10,6 +10,10 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: '16.x'
+        scope: '@paggue'
+        registry-url: 'https://registry.npmjs.org'
+        token: '${{secrets.NPM_TOKEN}}'
+        always-auth: true
     - run: yarn --frozen-lockfile --ignore-scripts
     - run: yarn build
     - run: yarn publish --access public
