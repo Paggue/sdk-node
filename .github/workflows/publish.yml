@@ -10,10 +10,6 @@ jobs:
     - uses: actions/setup-node@v3
       with:
         node-version: 16
-        scope: '@paggue'
-        registry-url: 'https://registry.npmjs.org'
-        always-auth: true
-        token: ${{ secrets.NPM_TOKEN }}
     - run: npm install
     - run: npm run build
     - run: npm publish --verbose
