@@ -14,8 +14,7 @@ jobs:
           scope: "@paggue"
           always-auth: true
       - run: yarn --inmutable
-      - run: cat /home/runner/work/_temp/.npmrc
       - run: yarn build-all
       - run: yarn publish --verbose
         env:
-          NODE_AUTH_TOKEN: "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"
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
