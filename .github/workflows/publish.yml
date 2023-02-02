@@ -12,7 +12,7 @@ jobs:
           node-version: "16.x"
           registry-url: "https://registry.npmjs.org"
           scope: "@paggue"
-          token: ${{ secrets.NPM_TOKEN }}
+          always-auth: true
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose --access public
