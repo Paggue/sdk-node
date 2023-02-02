@@ -6,9 +6,6 @@
     "type": "git",
     "url": "git+https://github.com/Paggue/sdk-node.git"
   },
-  "publishConfig": {
-    "@paggue:registry": "https://registry.npmjs.org"
-  },
   "license": "MIT",
   "keywords": [
     "typescript",
