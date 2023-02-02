@@ -3,7 +3,18 @@ name: Publish Release
 on: [push]
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: npm ci
+      - run: npm build
+
   publish:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -15,7 +26,6 @@ jobs:
         token: '${{secrets.NPM_TOKEN}}'
         always-auth: true
     - run: yarn --frozen-lockfile --ignore-scripts
-    - run: yarn build
     - run: yarn publish --access public
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
