@@ -13,8 +13,10 @@ jobs:
           registry-url: "https://registry.npmjs.org"
           scope: "@paggue"
           always-auth: true
-      - run: NODE_AUTH_TOKEN=${{ secrets.NPM_TOKEN }} envsubst < "$NPM_CONFIG_USERCONFIG" > .npmrc
+      - run: envsubst < "$NPM_CONFIG_USERCONFIG" > .npmrc
       - run: cat .npmrc
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
