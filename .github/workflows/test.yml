@@ -1,33 +1,33 @@
-# name: Lint and test
+name: Lint and test
 
-# on: [push, pull_request]
+on: [push, pull_request]
 
-# jobs:
-#   test:
-#     env:
-#       NODE_AUTH_TOKEN: ""
-#     runs-on: ubuntu-latest
-#     strategy:
-#       fail-fast: false
-#       matrix:
-#         nodejs: [16]
+jobs:
+  test:
+    env:
+      NODE_AUTH_TOKEN: ""
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        nodejs: [16]
 
-#     steps:
-#       - uses: actions/checkout@v3
-#       - uses: actions/setup-node@v3
-#         with:
-#           node-version: ${{ matrix.nodejs }}
-#           cache: "yarn"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.nodejs }}
+          cache: "yarn"
 
-#       - name: Install dependencies
-#         run: |
-#           yarn install
-#           yarn add -D esbuild
+      - name: Install dependencies
+        run: |
+          yarn install
+          yarn add -D esbuild
 
-#       - name: Run tests
-#         run: |
-#           yarn lint
-#         # yarn test
+      - name: Run tests
+        run: |
+          yarn lint
+        # yarn test
 
-#       - name: Build project
-#         run: yarn build-all
+      - name: Build project
+        run: yarn build-all
