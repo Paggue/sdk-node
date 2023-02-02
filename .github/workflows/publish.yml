@@ -25,6 +25,7 @@ jobs:
         registry-url: 'https://registry.npmjs.org'
         token: '${{secrets.NPM_TOKEN}}'
         always-auth: true
-    - run: yarn publish --access public
+    - run: yarn --frozen-lockfile --ignore-scripts
+    - run: yarn publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
