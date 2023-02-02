@@ -4,9 +4,6 @@ on: [push]
 
 jobs:
   publish:
-    env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
