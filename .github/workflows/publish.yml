@@ -13,7 +13,7 @@ jobs:
         registry-url: https://registry.npmjs.org
     - run: yarn install --frozen-lockfile
     - run: yarn build-all
-    - run: yarn publish
+    - run: yarn publish --verbose
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     - uses: actions/setup-node@v3
