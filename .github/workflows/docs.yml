@@ -23,7 +23,7 @@ jobs:
           node-version: "16.x"
           cache: "yarn"
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: yarn install
       - run: yarn docs
