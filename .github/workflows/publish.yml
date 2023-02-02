@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   publish:
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      NODE_AUTH_TOKEN: ""
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -15,4 +15,4 @@ jobs:
           registry-url: "https://registry.npmjs.org"
       - run: yarn install --frozen-lockfile
       - run: yarn build-all
-      - run: yarn publish
+      - run: NODE_AUTH_TOKEN=${{ secrets.NPM_TOKEN }} yarn publish
