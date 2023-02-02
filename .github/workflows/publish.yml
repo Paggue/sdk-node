@@ -10,7 +10,7 @@ jobs:
       - uses: actions/setup-node@v3
         with: 
           node-version: "16.x"
-          registry-url: <registry url>
+          registry-url: "https://registry.npmjs.org"
       - run: yarn --inmutable
       - run: yarn build-all
       - run: yarn publish --verbose
