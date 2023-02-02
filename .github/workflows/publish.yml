@@ -13,12 +13,8 @@ jobs:
         registry-url: https://registry.npmjs.org
     - run: npm ci --ignore-scripts
     - run: npm run build-all
-    - run: npm rebuild && npm run prepare --if-present
+    - run: |
+       npm rebuild && npm run prepare --if-present
+       npm publish
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-    - uses: actions/setup-node@v3
-      with:
-        registry-url: 'https://npm.pkg.github.com'
-    - run: npm rebuild && npm run prepare --if-present
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
