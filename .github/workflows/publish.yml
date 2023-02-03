@@ -7,11 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - uses: actions/setup-node@v1
+    - uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
-    - run: npm install
-    - run: npm run build
-    - run: npm publish --verbose
+        node-version: 16
+        scope: '@paggue'
+        registry-url: 'https://registry.npmjs.org'
+        always-auth: true
+    - run: yarn
+    - run: yarn build
+    - run: yarn publish --verbose
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
