@@ -1,8 +1,6 @@
 name: Publish Release
 
-on: 
-  release:
-    types: [created]
+on: [push]
 
 jobs:
   build:
@@ -28,8 +26,6 @@ jobs:
         scope: '@paggue'
         registry-url: 'https://registry.npmjs.org'
         always-auth: true
-    - run: yarn
-    - run: yarn build
     - run: yarn publish --access public --verbose
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
