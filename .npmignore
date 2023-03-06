@@ -22,3 +22,4 @@ jets.config.js
 tsconfig.json
 .editorconfig
 .eslintrc.js
+.npmrc

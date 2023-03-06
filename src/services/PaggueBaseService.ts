@@ -18,6 +18,7 @@ export interface PaggueSdkOptions {
   clientSecret: string
   signatureToken: string
   sandbox: boolean
+  debug: boolean
 }
 
 export interface PaggueAuthenticationResponse {

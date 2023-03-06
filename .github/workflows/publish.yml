@@ -1,17 +1,35 @@
 name: Publish Release
 
-on: [push]
+on: 
+  release:
+    types: [created]
 
 jobs:
-  publish:
+  build:
+    environment: production
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: "16.x"
-          registry-url: "https://registry.npmjs.org"
+          node-version: 16
+      - run: yarn --frozen-lockfile --ignore-scripts
+      - run: yarn build
 
-      - run: yarn install --frozen-lockfile
-      - run: yarn build-all
-      - run: NODE_AUTH_TOKEN=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 yarn publish --access public
+  publish:
+    needs: build
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        scope: '@paggue'
+        registry-url: 'https://registry.npmjs.org'
+        always-auth: true
+    - run: yarn
+    - run: yarn build
+    - run: yarn publish --access public --verbose
+      env:
+        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

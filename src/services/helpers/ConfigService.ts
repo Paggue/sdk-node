@@ -1,27 +1,26 @@
 import get from 'lodash/get'
-import { isProduction } from '../../util/enviroment'
 
 interface IConfig {
+  sandbox: boolean
+  debug: boolean
   api: {
     baseUrl: string
   }
 }
 
 export interface ConfigServiceOptions {
-  sandbox?: boolean
+  sandbox: boolean
+  debug: boolean
 }
 
 export class ConfigService {
-  private isSandbox: boolean
-
-  constructor(options?: ConfigServiceOptions) {
-    this.isSandbox = options?.sandbox ?? !isProduction()
-  }
+  constructor(private options: ConfigServiceOptions) {}
 
   private get configs(): IConfig {
     return {
+      ...this.options,
       api: {
-        baseUrl: this.isSandbox
+        baseUrl: this.options.sandbox
           ? 'https://ms.paggue.io/'
           : 'https://ms.paggue.io/'
       }

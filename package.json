@@ -1,13 +1,10 @@
 {
   "name": "@paggue/sdk-node",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "SDK to facilitate Node JS integrations with the Paggue API",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Paggue/sdk-node.git"
-  },
-  "publishConfig": {
-    "@paggue:registry": "https://registry.npmjs.org"
   },
   "license": "MIT",
   "keywords": [
@@ -23,8 +20,7 @@
     "clean": "rm -rf dist build package",
     "ts-node": "ts-node --files src/main.ts",
     "docs": "typedoc --entryPoints src/main.ts",
-    "build": "tsc -p tsconfig.json",
-    "build-all": "yarn clean && yarn build"
+    "build": "tsc -p tsconfig.json"
   },
   "devDependencies": {
     "@types/jest": "^27.4.1",

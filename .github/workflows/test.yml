@@ -4,8 +4,6 @@ on: [push, pull_request]
 
 jobs:
   test:
-    env:
-      NODE_AUTH_TOKEN: ""
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -30,4 +28,4 @@ jobs:
         # yarn test
 
       - name: Build project
-        run: yarn build-all
+        run: yarn build

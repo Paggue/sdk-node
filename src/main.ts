@@ -1,3 +1,7 @@
+import { randomUUID } from 'crypto'
+import { PaggueServices } from './services/PaggueServices'
+import { PaggueBillingOrderService } from './services/PaggueBillingOrderService'
+
 export * from './services/PaggueServices'
 export * from './services/PaggueBaseService'
 export * from './services/PaggueBillingOrderService'
@@ -6,13 +10,14 @@ export * from './services/PaggueCashOutService'
 async function oneOff() {
   // const logger = new LogService('OneOff')
   //
-  // PaggueServices.init({
-  //   companyId: '203',
-  //   clientKey: '',
-  //   clientSecret: '',
-  //   signatureToken: '',
-  //   sandbox: true
-  // })
+  PaggueServices.init({
+    companyId: '',
+    clientKey: '',
+    clientSecret: '',
+    signatureToken: '',
+    sandbox: false,
+    debug: false
+  })
   //
   // const paggueCashOutService = PaggueServices.get(PaggueCashOutService)
   //
@@ -37,7 +42,7 @@ async function oneOff() {
   // const paggueBillingOrderService = PaggueServices.get(
   //   PaggueBillingOrderService
   // )
-  //
+
   // const payment = await paggueBillingOrderService.createStaticPayment({
   //   externalId: randomUUID().toString(),
   //   amount: 2500,

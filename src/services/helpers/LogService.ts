@@ -1,6 +1,10 @@
 import winston, { Logger } from 'winston'
+import { PaggueServices } from '../PaggueServices'
+import { ConfigService } from './ConfigService'
 
 export class LogService {
+  private configService: ConfigService = PaggueServices.get(ConfigService)
+
   private instance: Logger
 
   constructor(context?: string) {
@@ -16,19 +20,30 @@ export class LogService {
     })
   }
 
+  private log(
+    type: string,
+    message: string,
+    meta?: any,
+    callback?: FunctionConstructor
+  ) {
+    if (this.configService.get(['debug'])) {
+      this.instance.log(type, message, { meta }, callback)
+    }
+  }
+
   error(message: string, meta?: any, callback?: FunctionConstructor) {
-    this.instance.log('error', message, { meta }, callback)
+    this.log('error', message, { meta }, callback)
   }
 
   warn(message: string, meta?: any, callback?: FunctionConstructor) {
-    this.instance.log('warn', message, { meta }, callback)
+    this.log('warn', message, { meta }, callback)
   }
 
   info(message: string, meta?: any, callback?: FunctionConstructor) {
-    this.instance.log('info', message, { meta }, callback)
+    this.log('info', message, { meta }, callback)
   }
 
   debug(message: string, meta?: any, callback?: FunctionConstructor) {
-    this.instance.log('debug', message, { meta }, callback)
+    this.log('debug', message, { meta }, callback)
   }
 }
