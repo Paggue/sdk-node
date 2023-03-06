@@ -11,10 +11,10 @@ async function oneOff() {
   // const logger = new LogService('OneOff')
   //
   PaggueServices.init({
-    companyId: '7114',
-    clientKey: '7325077848134082112',
-    clientSecret: '54748833224021937096815379',
-    signatureToken: '51f1260d-f307-42ac-b66a-0cd48a784d3f',
+    companyId: '',
+    clientKey: '',
+    clientSecret: '',
+    signatureToken: '',
     sandbox: false,
     debug: false
   })
@@ -39,16 +39,16 @@ async function oneOff() {
   //
   // logger.info('Cashout', cashout)
   //
-  const paggueBillingOrderService = PaggueServices.get(
-    PaggueBillingOrderService
-  )
+  // const paggueBillingOrderService = PaggueServices.get(
+  //   PaggueBillingOrderService
+  // )
 
-  const payment = await paggueBillingOrderService.createStaticPayment({
-    externalId: randomUUID().toString(),
-    amount: 2500,
-    description: 'New Payment',
-    payerName: 'Jimmy de Oliveira Bastos Lima'
-  })
+  // const payment = await paggueBillingOrderService.createStaticPayment({
+  //   externalId: randomUUID().toString(),
+  //   amount: 2500,
+  //   description: 'New Payment',
+  //   payerName: 'Jimmy de Oliveira Bastos Lima'
+  // })
   //
   // logger.info('Payment', payment)
 }
