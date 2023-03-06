@@ -26,6 +26,6 @@ jobs:
         scope: '@paggue'
         registry-url: 'https://registry.npmjs.org'
         always-auth: true
-    - run: yarn publish --access public --verbose
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+    - run: NPM_AUTH_TOKEN="${{ secrets.NPM_TOKEN }}" yarn publish --access public --verbose
+      # env:
+      #   NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
