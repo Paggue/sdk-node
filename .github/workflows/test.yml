@@ -28,4 +28,4 @@ jobs:
         # yarn test
 
       - name: Build project
-        run: yarn build-all
+        run: yarn build
