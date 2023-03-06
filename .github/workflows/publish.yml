@@ -1,9 +1,24 @@
 name: Publish Release
 
-on: [push]
+on: 
+  release:
+    types: [created]
 
 jobs:
+  build:
+    environment: production
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - run: yarn --frozen-lockfile --ignore-scripts
+      - run: yarn build
+
   publish:
+    needs: build
+    environment: production
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3

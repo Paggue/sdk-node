@@ -4,8 +4,6 @@ on: [push, pull_request]
 
 jobs:
   test:
-    env:
-      NODE_AUTH_TOKEN: ""
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
